@@ -1,0 +1,107 @@
+
+// set all the mission, chapter, and campaign endings to a default 'undefined' value
+class NoEndings
+{
+ 	lost = ;
+	end1 = ;
+	end2 = ;
+	end3 = ;
+	end4 = ;
+	end5 = ;
+	end6 = ;
+};
+
+// let the default mission inherit its endings from class NoEndings
+class MissionDefault: NoEndings
+{
+ 	lives = -1;
+};
+
+
+class Campaign {
+
+    author = "Haymaker-1";
+
+    // which name to show in the game's menu
+    briefingName = "First Campaign";
+
+    // disable multiplayer for this campaign
+    disableMP = 1;
+
+    firstBattle = Battle1;
+
+    // Both jpg and paa files work, but you have to prepend the url
+    // with the \Campaigns\<campaign name>\ bit. png files do not work.
+    overviewPicture = "\Campaigns\build\images\mission-wait-03.jpg";
+
+    overviewText = "This is the campaign's overview text.<br/><br/>You can use <t color='#ff0000'>structured text</t>.<br/><br/><t align='center'>centered text.</t>";
+
+    // you have to have Battle1 subclass
+    class Battle1: NoEndings {
+
+        author = "Haymaker-1";
+
+        // FIXME I don't think this works
+        displayName = "First Battle";
+
+        // you have to have a 'cutscene' property, even if there is no
+        // cutscene, in order to avoid getting a popup dialog ingame
+        cutscene = ;
+        // overwrite the end1 we inherit from NoEndings
+        end1 = Battle2;
+
+        firstMission = Mission1;
+
+        overviewText = "This should be Battle1's overview text but it doesn't seem to work.";
+
+        class Mission1: MissionDefault {
+            author = "Haymaker-1";
+            briefingName = "First Mission";
+            end1 = Mission2;
+            lost = Mission1;
+            overviewPicture = "\Campaigns\build\images\mission-wait-01.paa";
+            overviewText = "This is the first mission's overview text.";
+            template = mission1.Altis;
+        };
+
+        class Mission2: MissionDefault {
+            author = "Haymaker-1";
+            briefingName = "Second Mission";
+            overviewPicture = "\Campaigns\build\images\mission-wait-05.jpg";
+            overviewText = "This is the second mission's overview text.";
+            template = mission2.Altis;
+        };
+    };
+
+    class Battle2: NoEndings {
+
+        author = "Haymaker-1";
+        briefingName = "Second Battle";
+        // you have to have a 'cutscene' property, even if there is no
+        // cutscene, in order to avoid getting a popup dialog ingame
+        cutscene = ;
+        firstMission = Mission1;
+
+        overviewText = "This should be Battle2's overview text but it doesn't seem to work.";
+
+        class Mission1: MissionDefault {
+            author = "Haymaker-1";
+            briefingName = "Third Mission";
+            end1 = Mission2;
+            lost = Mission1;
+            overviewPicture = "\Campaigns\build\images\mission-wait-07.jpg";
+            overviewText = "This is the third mission's overview text.";
+            template = mission1.Altis;
+        };
+
+        class Mission2: MissionDefault {
+            author = "Haymaker-1";
+            briefingName = "Fourth Mission";
+            overviewPicture = "\Campaigns\build\images\house-to-house.jpg";
+            overviewText = "This is the fourth mission's overview text.";
+            template = mission2.Altis;
+        };
+    };
+
+
+};
