@@ -2,19 +2,19 @@
 // set all the mission, chapter, and campaign endings to a default 'undefined' value
 class NoEndings
 {
- 	lost = ;
-	end1 = ;
-	end2 = ;
-	end3 = ;
-	end4 = ;
-	end5 = ;
-	end6 = ;
+    lost = ;
+    end1 = ;
+    end2 = ;
+    end3 = ;
+    end4 = ;
+    end5 = ;
+    end6 = ;
 };
 
 // let the default mission inherit its endings from class NoEndings
 class MissionDefault: NoEndings
 {
- 	lives = -1;
+    lives = -1;
 };
 
 
@@ -30,11 +30,18 @@ class Campaign {
 
     firstBattle = Battle1;
 
+    // FIXME should not be enabled in the final campaign
+    //enableDebugConsole = 1;
+
     // Both jpg and paa files work, but you have to prepend the url
     // with the \Campaigns\<campaign name>\ bit. png files do not work.
-    overviewPicture = "\Campaigns\build\images\mission-wait-03.jpg";
+    // For consistency's sake, use jpg's because paa files do not work
+    // in the mission load screens while jpgs do. Finally, the URL should
+    // be relative to the Arma3 install directory.
+    overviewPicture = "\Campaigns\build\images\overview-pictures\campaign.jpg";
 
-    overviewText = "This is the campaign's overview text.<br/><br/>You can use <t color='#ff0000'>structured text</t>.<br/><br/><t align='center'>centered text.</t>";
+    // you can use structured text in any of the overview texts
+    overviewText = "This is the campaign's overview text.";
 
     // you have to have Battle1 subclass
     class Battle1: NoEndings {
@@ -54,12 +61,14 @@ class Campaign {
 
         overviewText = "This should be Battle1's overview text but it doesn't seem to work.";
 
+        // you have to have Mission# class (restart numbering at 1 for every
+        // battle)
         class Mission1: MissionDefault {
             author = "Haymaker-1";
             briefingName = "First Mission";
             end1 = Mission2;
             lost = Mission1;
-            overviewPicture = "\Campaigns\build\images\mission-wait-01.paa";
+            overviewPicture = "\Campaigns\build\images\overview-pictures\mission1.jpg";
             overviewText = "This is the first mission's overview text.";
             template = mission1.Altis;
         };
@@ -67,7 +76,9 @@ class Campaign {
         class Mission2: MissionDefault {
             author = "Haymaker-1";
             briefingName = "Second Mission";
-            overviewPicture = "\Campaigns\build\images\mission-wait-05.jpg";
+            end1 = ;
+            lost = Mission2;
+            overviewPicture = "\Campaigns\build\images\overview-pictures\mission2.jpg";
             overviewText = "This is the second mission's overview text.";
             template = mission2.Altis;
         };
@@ -81,6 +92,8 @@ class Campaign {
         // cutscene, in order to avoid getting a popup dialog ingame
         cutscene = ;
         firstMission = Mission1;
+        end1 = ;
+        lost = ;
 
         overviewText = "This should be Battle2's overview text but it doesn't seem to work.";
 
@@ -89,17 +102,19 @@ class Campaign {
             briefingName = "Third Mission";
             end1 = Mission2;
             lost = Mission1;
-            overviewPicture = "\Campaigns\build\images\mission-wait-07.jpg";
+            overviewPicture = "\Campaigns\build\images\overview-pictures\mission3.jpg";
             overviewText = "This is the third mission's overview text.";
-            template = mission1.Altis;
+            template = mission3.Altis;
         };
 
         class Mission2: MissionDefault {
             author = "Haymaker-1";
             briefingName = "Fourth Mission";
-            overviewPicture = "\Campaigns\build\images\house-to-house.jpg";
+            end1 = ;
+            lost = Mission2;
+            overviewPicture = "\Campaigns\build\images\overview-pictures\mission4.jpg";
             overviewText = "This is the fourth mission's overview text.";
-            template = mission2.Altis;
+            template = mission4.Altis;
         };
     };
 
