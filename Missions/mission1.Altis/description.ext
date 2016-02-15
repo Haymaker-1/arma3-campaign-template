@@ -1,0 +1,42 @@
+
+// duplicate information of the Campaign's description.ext,
+// but you need it
+author = "Haymaker-1";
+onloadName = "The first mission";
+onLoadMission = "Begin the campaign."
+
+// here, paa files don't work. Also URLs are relative to this
+// description.ext file.
+loadScreen = "images\mission1.jpg";
+
+enableDebugConsole = 1;
+
+// this class defines the radio sounds specific to mission1; use them ingame by // e.g.player sideRadio RadioMsg1
+class CfgRadio
+{
+    sounds[] = {};
+    class RadioMsg1
+    {
+        name = "";
+        sound[] = {"\sounds\near-the-crash-site.ogg", db-100, 1.0};
+        title = "Captain, we are near the crash site.";
+    };
+    class RadioMsg2
+    {
+        name = "";
+        sound[] = {"\sound\filename2", db-100, 1.0}; // .wss implied
+        title = {$STR_RADIO_2};
+    };
+};
+
+
+//class CfgSounds
+//{
+//    sounds[] = {};
+//    class addonsound1
+//    {
+//        name = "";
+//        sound[] = {"@a3\Ui_F_Curator\Data\Sound\CfgSound\visionMode", 0.8, 1};
+//        titles[] = {0,""};
+//    };
+//};
